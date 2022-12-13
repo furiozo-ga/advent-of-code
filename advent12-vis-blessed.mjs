@@ -61,8 +61,8 @@ let inp=inp2, ds, q, lens=[], lenS
   , lx=inp.length-1
   , ly=inp[0].length-1
   , va=Array(lx+1)
-  , cn=6<<9
-  , cv=6   // 8<<18 - reverse
+  , cn=4<<9
+  , cv=2|2<<18   // 8<<18 - reverse
   , speed=10n
   , spstep=3n
 //   , cv=6<<9|8<<18   // 8<<18 - reverse
