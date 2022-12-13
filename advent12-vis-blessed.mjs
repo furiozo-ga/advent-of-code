@@ -131,7 +131,9 @@ function step2([x,y,stepn,preele]){
 
 
     // va[x][y]='\x1b[1m'+va[x][y]+'\x1b[m'
-    vis.scr.fillRegion(cv, inp[x][y], y, y+1, x, x+1)
+    q.length
+        ? vis.scr.fillRegion(cv, inp[x][y], y, y+1, x, x+1)
+        : vis.scr.fillRegion(1 , inp[x][y], y, y+1, x, x+1)
     // vis.r()
     // await sleep(0)
     
