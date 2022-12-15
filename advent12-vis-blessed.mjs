@@ -63,8 +63,8 @@ let inp=inp2, ds, q, lens=[], lenS
   , va=Array(lx+1)
   , cn=4<<9
   , cv=4<<9|3<<18   // 8<<18 - reverse, 1-bold, 2-underline
-  , speed=10n
-  , spstep=3n
+  , speed=6n
+  , spstep=2n
 //   , cv=6<<9|8<<18   // 8<<18 - reverse
 
 for(let i=0; i<va.length ; ++i) va[i]=Array(ly+1).fill('0')
@@ -101,7 +101,8 @@ for(let i=0; i<=lx; ++i){
             // l(steps)
             if(++c % speed == 0n){
                 vis.r()
-                await sleep(5)
+                // await sleep(0)
+                await new Promise(res=>setTimeout(res,0))
                 c%=1000000n
             }
 
