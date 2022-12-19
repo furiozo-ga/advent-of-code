@@ -88,7 +88,6 @@ for(let room in v){
 }
 l('candidates:',vff)
 console.time()
-l('build shpath')
 bshpath()
 console.timeLog()
 
@@ -152,23 +151,6 @@ function bitcount(n){
   return count;
 }
 
-// function mkch1(rooms, min_left, bp, fp, voff=[...candidates], curr_rate=0, total=0){
-//     let goon=false, nrm=[], next_rate=curr_rate
-//     for(let p=0 ;p<rooms.length; ++p){
-//         if( fp[p].length   ){ nrm[p]=fp[p].shift(); goon=true; continue}        // move on
-//         if( v[rooms[p]].pr ){ next_rate+=v[rooms[p]].pr ; goon=true; continue}  // open valve
-//     }
-// }
-
-function bmkch1(arr,m){
-    let bp=[],fp=[]
-    for(let i=0; i<arr.length; ++i){
-        bp[i]=[]
-        fp[i]=[]
-    }
-    return mkch1(add, m, bp, fp)
-}
-
 function bshpath(){
   for(let a of ['AA',...vff])
     for(let b of vff)
@@ -195,35 +177,4 @@ function addshpath(s,d){
     }
     l('no path ',s,d)
     process.exit(3)
-}
-
-// l('final : ',make_choice('AA'),counter)
-
-function make_choice(room, curr_rate=0, total=0, min_left=30, von=[], rpath=[], rslvon=[]){
-
-    let max_subtotal=0, mstrp, r
-    if(v[room].pr!=0 && !von.includes(room)){
-        // l('von:',room)
-        if(min_left==2){
-            ++counter
-            return [total+curr_rate+curr_rate+v[room].pr, rpath]
-        }
-        ;[max_subtotal,mstrp]=make_choice(room,     curr_rate+v[room].pr, total+curr_rate, min_left-1, [...von, room], [...rpath,room], [room])
-    }
-
-    if(min_left==2){
-        ++counter
-        return [total+curr_rate+curr_rate, rpath]
-    }
-    for(let i=0 ; i<v[room].to.length; ++i){
-        // l('to:',v[room].to[i])
-        if(rslvon.includes(v[room].to[i])) continue
-        r=make_choice(v[room].to[i],curr_rate           , total+curr_rate, min_left-1, von           , [...rpath,room], [...rslvon, room])
-        // l(`subtotal ${room} minutes=${min_left} ${r[0]} von=${von} rpath=${r[1]}`)
-        if(r[0]>max_subtotal){
-            max_subtotal=r[0]
-            mstrp=r[1]
-        }
-    }
-    return [max_subtotal, mstrp]
 }

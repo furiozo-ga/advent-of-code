@@ -40,15 +40,15 @@ Blueprint 30: Each ore robot costs 3 ore. Each clay robot costs 4 ore. Each obsi
 
 let m,inp=inp2,bl=[]
   , re=/(\d+).+?(\d+).+?(\d+).+?(\d+).+?(\d+).+?(\d+).+?(\d+)/g
-  , robots=[1,0], res=[0,0,0,0], planned=null
+
 while(m=re.exec(inp)){
     bl.push({
         n: +m[1],
-        r: [
-            {cost: [+m[2],    0,0], prod: [1,0,0,0]},
-            {cost: [+m[3],    0,0], prod: [0,1,0,0]},
-            {cost: [+m[4],+m[5],0], prod: [0,0,1,0]},
-            {cost: [+m[6],0,+m[7]], prod: [0,0,0,1]},
+        cost: [
+            [+m[2],    0,0],
+            [+m[3],    0,0],
+            [+m[4],+m[5],0],
+            [+m[6],0,+m[7]],
         ],
         max: [Math.max(+m[2],+m[3],+m[4],+m[6]), +m[5], +m[7]]
     })
@@ -71,11 +71,10 @@ for(let bli in [0,1,2]){
 l('part 2 total',total)
 
 function optimize(i,min=24,robots=[1,0],res=[0,0,0,0],planned=null){
-    // l('optimize',i,min,robots,res,planned)
     if(min===1) return res[3]+robots[3]
     let new_robot=null
     if(planned!==null){
-        let cost = bl[i].r[planned].cost
+        let cost = bl[i].cost[planned]
         if( res[0]>=cost[0] && res[1]>=cost[1] && res[2]>=cost[2] ){
             res[0]-=cost[0]  ; res[1]-=cost[1]  ; res[2]-=cost[2]
             new_robot=planned
@@ -85,7 +84,6 @@ function optimize(i,min=24,robots=[1,0],res=[0,0,0,0],planned=null){
     }
 
     for(let r=0;r<robots.length;++r) res[r]+=robots[r]      // collect
-    // for(let r in robots) res[r]+=robots[r]      // collect
     
     if(new_robot!==null){
         ++robots[new_robot]    // add new robot
@@ -96,26 +94,12 @@ function optimize(i,min=24,robots=[1,0],res=[0,0,0,0],planned=null){
         let max=0
         for(let r=0;r<robots.length;++r){
             if(r<3 && (robots[r]>=bl[i].max[r] || min<5)) continue
-            else planned=r
             let sub=optimize(i,min-1,[...robots],[...res],r)
             if(sub>max) max=sub
         }
-        if(planned===null) return optimize(i,min-1,[...robots],[...res],null)
         return max
     }else{
         //straight recurse
         return optimize(i,min-1,[...robots],[...res],planned)
     }
 }
-
-function enough(i,res,planned){
-    let cost = bl[i].r[planned].cost
-    if( res[0]>=cost[0] && res[1]>=cost[1] && res[2]>=cost[2] ){
-        res[0]-=cost[0]  ; res[1]-=cost[1]  ; res[2]-=cost[2]
-        return planned
-    }
-    return null
-}
-
-
-// l(JSON.stringify( bl,null,2))
