@@ -1,5 +1,3 @@
-const { json } = require("express")
-
 globalThis.l=console.log
 
 let inp1=

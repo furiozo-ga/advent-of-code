@@ -16,10 +16,26 @@ export default class vis{
     });
   }
   static r(){this.scr.render()}
+  static show(...p){
+    for(let i=0; i<p.length ;++i){
+      if(Array.isArray(p[i])){
+        for(let y=0; y<p[i].length; ++y)
+          for(let x=0; x<p[i][y].length; ++x)
+            this.scr.fillRegion(null , String(p[i][y][x]), x, x+1, y, y+1)
+      }else{  // strings
 
-  static box(h='50%',w='50%'){
+      }
+    }
+    this.scr.render()
+  }
+  static putchar(x,y,char,attr=null){
+    this.scr.fillRegion(attr , char , x, x+1, y, y+1)
+    this.scr.render()
+  }
+
+  static box(h='50%',w='50%',params){
     let box = blessed.box({
-      top: 'center',
+      // top: 'center',
       // top: 1,
       // bottom:0,
       // left: 'center',
@@ -38,17 +54,56 @@ export default class vis{
           fg: '#ffe0e0'
         },
         hover: {
-          bg: 'green'
+          // bg: 'green'
         }
-      }
+      },
+      ...params
     });
     
+    if(box.scrollable){
+      box.on('element mouse',function(b,e){
+        // l(...e)
+        // l(JSON.stringify(e))
+        // vis.dump(e.length)
+        if(e.action=='wheelup'  ) { b.scroll(-1)}
+        if(e.action=='wheeldown') { b.scroll( 1)}
+        b.screen.render()
+      })
+    }
+
     this.boxes.push(box);
     this.scr.append(box)
     this.scr.render()
     return box
   }
+  static dump(...p){
+    vis.scr.destroy()
+    setTimeout(()=>console.log(...p),200)
+  }
 }
+
+// attributes for fillRegion :
+// reblressed/lib/widgets/element.js:258
+
+
+// mouse event data :
+// {
+//    "name":"mouse",
+//    "ctrl":false,
+//    "meta":false,
+//    "shift":false,
+//    "type":"X10",
+//    "raw":[67,66,74,"\u001b[MCBJ"],
+//    "buf":{
+//      "type":"Buffer",
+//      "data":[27,91,77,67,66,74]
+//    },
+//    "x":1,
+//    "y":40,
+//    "action":"mousemove mousedown mouseup wheeldown wheelup",
+//    ?"button": "left right middle"
+// }
+
 
 
 // // If our box is clicked, change the content.

@@ -84,10 +84,6 @@ Test: divisible by 17
 
 globalThis.l=console.log
 let inp=inp2
-let task=2
-let rounds=10000
-let cm    // common multiple
-l(inp)
 
 class monkey{
   constructor(t){
@@ -120,17 +116,20 @@ class monkey{
   report(){ l('Monkey '+this.n+': '+this.items.join`, `+' ('+this.inspects+')')}
 }
 
-let m=[]
-inp.forEach(e=>m.push(new monkey(e)))
-cm=m.reduce((a,e)=>a*e.div,1)
+let m,cm,task
 
-
-for(let i=1; i<=rounds; ++i){
-  l('\nround '+i)
-  for(let j of m) j.throwAll()
-  for(let j of m) j.report()
+function fu(tsk,rounds){
+  m=[],task=tsk
+  inp.forEach(e=>m.push(new monkey(e)))
+  cm=m.reduce((a,e)=>a*e.div,1)
+  for(let i=1; i<=rounds; ++i){
+    // l('\nround '+i)
+    for(let j of m) j.throwAll()
+    // for(let j of m) j.report()
+  }
+  m.sort((a,b)=>b.inspects - a.inspects)
+  // l('common multiple : ',cm)
+  l('monkey business',tsk,m[0].inspects * m[1].inspects)
 }
-m.sort((a,b)=>b.inspects - a.inspects)
-l('common multiple : ',cm)
-l('monkey business : ',m[0].inspects * m[1].inspects)
-
+fu(1,20)
+fu(2,10000)
