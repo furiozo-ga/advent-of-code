@@ -1,6 +1,5 @@
 globalThis.l=console.log
 
-
 let sp='vzbxkghb', ap=sp.split`` ,p1
 
 while(fail()){}
@@ -8,10 +7,6 @@ l(p1=sp)
 inc()
 while(fail()){}
 l(p1,sp)
-
-// for(let i=0; i<1e6; i++) {
-//     inc()
-// }
 
 function inc(p=7){
     if(ap[p]<'z') ap[p]=String.fromCharCode(1+ap[p].charCodeAt())

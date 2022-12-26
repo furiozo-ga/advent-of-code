@@ -58,7 +58,6 @@ for(let start of [...loc]){
 l(min,max)
 
 function lp(start,dst){
-    // l('shp',start,dst)
     if(dst.length==1) return d.get(start+','+dst[0])
     let max=0
     for(let ns of dst){
@@ -69,7 +68,6 @@ function lp(start,dst){
     return max
 }
 function shp(start,dst){
-    // l('shp',start,dst)
     if(dst.length==1) return d.get(start+','+dst[0])
     let min=Infinity
     for(let ns of dst){
@@ -79,5 +77,3 @@ function shp(start,dst){
     }
     return min
 }
-
-// l(d,loc)
