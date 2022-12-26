@@ -1,7 +1,5 @@
 globalThis.l=console.log
 
-let inp2=`turn on 0,0 through 999,999
-turn off 499,499 through 500,500`
 let inp=`turn on 489,959 through 759,964
 turn off 820,516 through 871,914
 turn off 427,423 through 929,502
