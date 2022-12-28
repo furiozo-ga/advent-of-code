@@ -16,7 +16,6 @@ task=2
 l(opt([],100))
 
 function opt(ls,left){
-    // l(ls,left)
     if(ls.length==inp.length-1){
         ls.push(left)
 
@@ -33,13 +32,11 @@ function opt(ls,left){
             let ssc=0
             for(let i=0 ; i< ls.length ;++i){
                 ssc+=inp[i][q]*ls[i]
-                // l('ing',q,i,ssc)
             }
             if(ssc<0) ssc=0
             sc*=ssc
         }
 
-        // l('score',ls,sc)
         return sc
     }
     let max=0
