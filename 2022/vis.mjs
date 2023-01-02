@@ -16,15 +16,13 @@ export default class vis{
     });
   }
   static r(){this.scr.render()}
-  static show(...p){
-    for(let i=0; i<p.length ;++i){
-      if(Array.isArray(p[i])){
-        for(let y=0; y<p[i].length; ++y)
-          for(let x=0; x<p[i][y].length; ++x)
-            this.scr.fillRegion(null , String(p[i][y][x]), x, x+1, y, y+1)
-      }else{  // strings
+  static show(p,attr=6<<9){
+    if(Array.isArray(p)){
+      for(let y=0; y<p.length; ++y)
+        for(let x=0; x<p[y].length; ++x)
+        p[y][x] && this.scr.fillRegion(attr, String(p[y][x]), x, x+1, y, y+1)
+    }else{  // strings
 
-      }
     }
     this.scr.render()
   }
