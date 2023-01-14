@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "node-cleanup": "^2.1.2",
     "reblessed": "^0.1.84"
   }
 }
